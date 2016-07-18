@@ -1,6 +1,6 @@
 <?php
 
-include_once './RunTask.class.php';
+include_once ROOT.'RunTask.class.php';
 
 class AutoPlan extends RunTask{
 
@@ -21,7 +21,7 @@ class AutoPlan extends RunTask{
 	
 	function getNowTask(){
 		$_time = time();
-		$dir = "./task/";
+		$dir = ROOT."task/";
 		$sql = 'SELECT * FROM `cwh_cron` WHERE ( `cr_isopen` >= 1 ) ORDER BY `cr_next_time` ASC ';
 		$result = $this->dbsource->query($sql);
 		$taskArr = [];

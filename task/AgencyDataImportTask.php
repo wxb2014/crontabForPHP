@@ -1,5 +1,5 @@
 <?php
-require_once 'task.class.php';
+require_once ROOT.'task.class.php';
 class AgencyDataImportTask implements task{
     /**
      * 返回信息

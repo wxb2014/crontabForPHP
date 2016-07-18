@@ -1,6 +1,6 @@
 <?php
 
-require_once 'task.class.php';
+require_once ROOT.'task.class.php';
 
 class AgApiTask implements task{
 

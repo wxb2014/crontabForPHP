@@ -1,7 +1,7 @@
 # crontabForPHP
 crontab by php
 
-how to use?
+从data 文件夹登入数据表
+修改AutoPlan.class.php 数据配置
+调用代码如index.php所示
 
-$play = new AutoPlan();
-$play->startTask();

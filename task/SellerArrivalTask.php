@@ -3,7 +3,7 @@
  * 卖家金额到账
  */
 
-require_once 'task.class.php';
+require_once ROOT.'task.class.php';
 
 class SellerArrivalTask implements  task {
 

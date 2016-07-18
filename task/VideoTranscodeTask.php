@@ -3,7 +3,7 @@
  * 视频转码计划任务
  */
 
-require_once 'task.class.php';
+require_once ROOT.'task.class.php';
 
 class VideoTranscodeTask implements task{
 
