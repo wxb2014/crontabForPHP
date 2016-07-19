@@ -2,7 +2,7 @@
 /**
  * 学习记录计划任务
  */
-require_once ROOT.'task.class.php';
+require_once ROOT.'task/task.class.php';
 class LearningRecordTask implements task{
 
 	/**

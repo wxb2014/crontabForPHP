@@ -2,7 +2,7 @@
 
 abstract class RunTask {
 
-	function startTask($maxTime = 3000){
+	function startTask($maxTime = 0){
 		if(!$this->checkTime($maxTime)){
 			exit('时间间隔过短');
 		};
@@ -25,7 +25,7 @@ abstract class RunTask {
 		 
     function checkTime($maxTime){
         // 锁定自动执行
-        $lockfile = './cron.lock';
+        $lockfile = ROOT.'cron.lock';
         if (is_writable($lockfile) && filemtime($lockfile) > $_SERVER['REQUEST_TIME'] - $maxTime) {
         	unlink($lockfile);
         	return false;
@@ -43,7 +43,7 @@ abstract class RunTask {
      * @param int $hour 几点
      * @param int $minute 每小时的几分
      */
-    protected public function getNextTime($loopType, $day = 0, $hour = 0, $minute = 0) {
+    protected function getNextTime($loopType, $day = 0, $hour = 0, $minute = 0) {
         $time = time();
         $_minute = intval(date('i', $time));
         $_hour = date('G', $time);
@@ -103,7 +103,7 @@ abstract class RunTask {
      * @param type $isLeapYear 是否为闰年
      * @return int
      */
-   protected public function _getMouthDays($month, $isLeapYear) {
+   protected function _getMouthDays($month, $isLeapYear) {
         if (in_array($month, array('1', '3', '5', '7', '8', '10', '12'))) {
             $days = 31;
         } elseif ($month != 2) {

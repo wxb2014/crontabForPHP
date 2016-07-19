@@ -3,7 +3,7 @@
  * 导入学校、班级数据计划任务
  */
 
-require_once ROOT.'task.class.php';
+require_once ROOT.'task/task.class.php';
 
 class ScDataImportTask implements task{
     /**

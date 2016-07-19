@@ -2,7 +2,7 @@
 /**
  * 计划任务事例
  */
-require_once ROOT.'task.class.php';
+require_once ROOT.'task/task.class.php';
 class CronTask implements task{
 
 	/**

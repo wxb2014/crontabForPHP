@@ -1,5 +1,4 @@
 <?php
-
 include_once ROOT.'RunTask.class.php';
 
 class AutoPlan extends RunTask{
@@ -7,14 +6,15 @@ class AutoPlan extends RunTask{
 	public $dbsource = null;
 
 	function __construct(){
-		$dbconfig = [
+	$dbconfig = [
 		    'URL_MODEL'=>2, // 如果你的环境不支持PATHINFO 请设置为3
 			'DB_TYPE'=>'mysql',
-			'DB_HOST'=>'192.168.0.106',
-			'DB_NAME'=>'situ_com',
+			'DB_HOST'=>'localhost',
+			'DB_NAME'=>'share',
 			'DB_USER'=>'root',
-			'DB_PWD'=>'123456',
-			'DB_PORT'=>'3306'];
+			'DB_PWD'=>'tfr820531',
+			'DB_PORT'=>'3306'
+		];
 		$this->dbsource = mysqli_connect($dbconfig['DB_HOST'],$dbconfig['DB_USER'],$dbconfig['DB_PWD'],$dbconfig['DB_NAME']);
 		mysqli_set_charset($this->dbsource, "utf8"); 
 	}
