@@ -12,7 +12,7 @@ class AutoPlan extends RunTask{
 			'DB_HOST'=>'localhost',
 			'DB_NAME'=>'share',
 			'DB_USER'=>'root',
-			'DB_PWD'=>'tfr820531',
+			'DB_PWD'=>'xxx',
 			'DB_PORT'=>'3306'
 		];
 		$this->dbsource = mysqli_connect($dbconfig['DB_HOST'],$dbconfig['DB_USER'],$dbconfig['DB_PWD'],$dbconfig['DB_NAME']);
@@ -71,5 +71,4 @@ class AutoPlan extends RunTask{
 		mysqli_close($this->dbsource);
 	}
 }
-$play = new AutoPlan();
-$play->startTask();
+
