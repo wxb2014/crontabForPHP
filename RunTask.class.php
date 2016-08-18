@@ -9,12 +9,12 @@ abstract class RunTask {
 		set_time_limit(0);
         ignore_user_abort(true);
 		$taskObjs = $this->getNowTask();
-		$taskRets = $this->runTask($taskObjs);		
+		$taskRets = $this->run($taskObjs);		
 	}
 	
 	abstract function getNowTask();
 	
-	function runTask(array $taskObjs){	    
+	function run(array $taskObjs){	    
 		foreach($taskObjs as $v){
 			$v['message'] = $v['taskObj']->run($v['pk_cr']);			
 			$this->afterTask($v);	

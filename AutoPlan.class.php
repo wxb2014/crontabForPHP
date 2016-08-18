@@ -3,26 +3,29 @@ include_once ROOT.'RunTask.class.php';
 
 class AutoPlan extends RunTask{
 
-	public $dbsource = null;
+	protected $dbsource = null;
+	protected $dbconfig = [
+		'URL_MODEL' => 2, // 如果你的环境不支持PATHINFO 请设置为3
+		'DB_TYPE'   => 'mysql',
+		'DB_HOST'   => '192.168.2.253',
+		'DB_NAME'   => 'cjj',
+		'DB_USER'   => 'cjj',
+		'DB_PWD'    => 'caihuohuo',
+		'DB_PORT'   => '3306',
+		'DB_PREFIX' => 'cjj_'
+	];
 
 	function __construct(){
-	$dbconfig = [
-		    'URL_MODEL'=>2, // 如果你的环境不支持PATHINFO 请设置为3
-			'DB_TYPE'=>'mysql',
-			'DB_HOST'=>'localhost',
-			'DB_NAME'=>'share',
-			'DB_USER'=>'root',
-			'DB_PWD'=>'xxx',
-			'DB_PORT'=>'3306'
-		];
-		$this->dbsource = mysqli_connect($dbconfig['DB_HOST'],$dbconfig['DB_USER'],$dbconfig['DB_PWD'],$dbconfig['DB_NAME']);
+		//获取配置
+
+		$this->dbsource = mysqli_connect($this->dbconfig['DB_HOST'],$this->dbconfig['DB_USER'],$this->dbconfig['DB_PWD'],$this->dbconfig['DB_NAME']);
 		mysqli_set_charset($this->dbsource, "utf8"); 
 	}
 	
 	function getNowTask(){
 		$_time = time();
 		$dir = ROOT."task/";
-		$sql = 'SELECT * FROM `cwh_cron` WHERE ( `cr_isopen` >= 1 ) ORDER BY `cr_next_time` ASC ';
+		$sql = "SELECT * FROM `{$this->dbconfig['DB_PREFIX']}cron` WHERE ( `cr_isopen` >= 1 ) ORDER BY `cr_next_time` ASC ";
 		$result = $this->dbsource->query($sql);
 		$taskArr = [];
 		while ($cron = $result->fetch_assoc()) {
@@ -42,7 +45,6 @@ class AutoPlan extends RunTask{
 			}
 	    }	    
 	    return $taskArr;
-
 	}
 	
 	function afterTask($taskRets){
@@ -50,7 +52,7 @@ class AutoPlan extends RunTask{
 		list($day, $hour, $minute) = explode('-', $taskRets['cr_loop_daytime']);        
         $cr_next_time = $this->getNextTime($taskRets['cr_loop_type'], $day, $hour, $minute);
 		$pk_cr = $taskRets['pk_cr'];
-		$query = "UPDATE `cwh_cron` SET `cr_modified_time`= ".time().",`cr_next_time`= ".$cr_next_time." WHERE ( `pk_cr` = ".$pk_cr." )";
+		$query = "UPDATE `{$this->dbconfig['DB_PREFIX']}cron` SET `cr_modified_time`= ".time().",`cr_next_time`= ".$cr_next_time." WHERE ( `pk_cr` = ".$pk_cr." )";
 		$stmt = $this->dbsource->prepare($query);		
 		$stmt->execute();
 		$stmt->close();
@@ -59,7 +61,7 @@ class AutoPlan extends RunTask{
         $data['cr_file'] = $taskRets['cr_file'];
         $data['crlog_message'] = $taskRets['message'];
         $data['crlog_add_time'] = time();
-		$query = "INSERT INTO `cwh_cron_log` (`cr_id`,`cr_file`,`crlog_message`,`crlog_add_time`) VALUES ({$data['cr_id']},'{$data['cr_file']}','{$data['crlog_message']}',{$data['crlog_add_time']})";
+		$query = "INSERT INTO `{$this->dbconfig['DB_PREFIX']}cron_log` (`cr_id`,`cr_file`,`crlog_message`,`crlog_add_time`) VALUES ({$data['cr_id']},'{$data['cr_file']}','{$data['crlog_message']}',{$data['crlog_add_time']})";
 		$stmt = $this->dbsource->prepare($query);		
 		$stmt->execute();
 		$stmt->close();
