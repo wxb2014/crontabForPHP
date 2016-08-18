@@ -1,3 +1,4 @@
+
 <?php
 
 /**
@@ -77,4 +78,5 @@ class IndexAutoPlan extends RunTask{
 		mysqli_close($this->dbsource);
 	}
 }
+
 
