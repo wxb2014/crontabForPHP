@@ -2,6 +2,15 @@
 crontab by php
 
 从data 文件夹导入数据表
-修改AutoPlan.class.php 数据配置
-调用代码如index.php所示
+调用代码如
+
+$dbconfig = [
+                'DB_HOST'   => 'xxx',
+                'DB_NAME'   => 'xxx',
+                'DB_USER'   => 'xxx',
+                'DB_PWD'    => 'xxx',
+                'DB_PREFIX' => 'xxx',
+            ];
+$autoPlan = new IndexAutoPlan($dbconfig);
+$autoPlan->startTask();
 
