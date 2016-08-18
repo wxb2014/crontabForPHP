@@ -1,7 +1,7 @@
 ﻿# crontabForPHP
 crontab by php
 
-使用命名空间
+使用命名空间\r\n
 从data 文件夹导入数据表
 调用代码如
 
